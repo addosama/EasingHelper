@@ -2,14 +2,16 @@ package by.addoalts.easinghelper;
 
 import lombok.Getter;
 
+import java.util.function.Function;
+
 public final class Easing {
     @Getter
     private final float start, end;
-    private final EasingFunction function;
+    private final Function<Double, Double> function;
     @Getter
     private final long startTime, duration;
 
-    public Easing(float start, float end, EasingFunction function, long duration) {
+    public Easing(float start, float end, Function<Double, Double> function, long duration) {
         this.start = start;
         this.end = end;
         this.function = function == null? x -> x : function;
@@ -17,7 +19,7 @@ public final class Easing {
         this.startTime = System.currentTimeMillis();
     }
 
-    public Easing(float start, float end, EasingFunction function, int cooldown) {
+    public Easing(float start, float end, Function<Double, Double> function, int cooldown) {
         this(start, end, function, (long) Math.abs(((end-start) * cooldown)));
     }
 
